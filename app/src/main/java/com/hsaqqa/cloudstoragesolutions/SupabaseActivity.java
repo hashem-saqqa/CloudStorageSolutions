@@ -63,10 +63,8 @@ public class SupabaseActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             Log.d("UPLOAD", "Success!");
                         } else {
+                            Log.e("UPLOAD", "Failed: " + response);
                             Log.e("UPLOAD", "Failed: " + response.code());
-                            Log.e("UPLOAD", "Failed: " + response.toString());
-                            Log.e("UPLOAD", "Failed: " + response.errorBody());
-                            Log.e("UPLOAD", "Failed: " + response.body());
                             Log.e("UPLOAD", "Failed: " + response.message());
                         }
                     }
