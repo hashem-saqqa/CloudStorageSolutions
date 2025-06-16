@@ -19,7 +19,6 @@ public interface ApiRequests {
             @Path("bucket") String bucket,
             @Path("path") String path,
             @Part MultipartBody.Part file
-//            ,@Header("Authorization") String auth
     );
 
     @GET("storage/v1/object/{bucket}/{path}")

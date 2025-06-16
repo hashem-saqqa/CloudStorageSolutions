@@ -39,24 +39,25 @@ public class SupabaseActivity extends AppCompatActivity {
     ApiRequests apiRequests;
     ActivitySupabaseBinding binding;
 
-    ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult o) {
             if (o.getResultCode() == RESULT_OK && o.getData() != null) {
                 Bitmap bitmap = (Bitmap) o.getData().getExtras().get("data");
-                Log.d("pickImage", "onActivityResult: " + bitmap);
                 binding.profileIv.setImageBitmap(bitmap);
 
                 RequestBody requestFile = null;
                 try {
-                    requestFile = RequestBody.create(MediaType.parse("image/*"), bitmapToFile(bitmap, "hashemImage"));
+                    requestFile = RequestBody.create(MediaType.parse("image/*"), bitmapToFile(bitmap, "myProfileImage"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 MultipartBody.Part body = MultipartBody.Part.createFormData("file", "hashemImage", requestFile);
 
 
-                Call<ResponseBody> call = apiRequests.uploadFile("images", "hashem.png", body);
+                Call<ResponseBody> call = apiRequests.uploadFile("images", "983746467373", body);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -94,7 +95,7 @@ public class SupabaseActivity extends AppCompatActivity {
 
         apiRequests = retrofit.create(ApiRequests.class);
 
-        Picasso.get().load("https://cpwfohyfdodhwmnsfmlk.supabase.co/storage/v1/object/images/profileImages").into(binding.profileIv);
+        Picasso.get().load("https://cpwfohyfdodhwmnsfmlk.supabase.co/storage/v1/object/products/55").into(binding.profileIv);
     }
     private File bitmapToFile(Bitmap bitmap, String name) throws IOException {
         File f = new File(getApplicationContext().getCacheDir(), name);
